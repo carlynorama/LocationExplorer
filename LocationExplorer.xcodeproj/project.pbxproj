@@ -11,6 +11,7 @@
 		DA7E1A1D28DA4AD600674073 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7E1A1C28DA4AD600674073 /* ContentView.swift */; };
 		DA7E1A1F28DA4AD700674073 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DA7E1A1E28DA4AD700674073 /* Assets.xcassets */; };
 		DA7E1A2328DA4AD700674073 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DA7E1A2228DA4AD700674073 /* Preview Assets.xcassets */; };
+		DA7E1A2A28DA4AF300674073 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7E1A2928DA4AF300674073 /* LocationManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -20,6 +21,7 @@
 		DA7E1A1E28DA4AD700674073 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DA7E1A2028DA4AD700674073 /* LocationExplorer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = LocationExplorer.entitlements; sourceTree = "<group>"; };
 		DA7E1A2228DA4AD700674073 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		DA7E1A2928DA4AF300674073 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,6 +56,7 @@
 			children = (
 				DA7E1A1A28DA4AD600674073 /* LocationExplorerApp.swift */,
 				DA7E1A1C28DA4AD600674073 /* ContentView.swift */,
+				DA7E1A2928DA4AF300674073 /* LocationManager.swift */,
 				DA7E1A1E28DA4AD700674073 /* Assets.xcassets */,
 				DA7E1A2028DA4AD700674073 /* LocationExplorer.entitlements */,
 				DA7E1A2128DA4AD700674073 /* Preview Content */,
@@ -141,6 +144,7 @@
 			files = (
 				DA7E1A1D28DA4AD600674073 /* ContentView.swift in Sources */,
 				DA7E1A1B28DA4AD600674073 /* LocationExplorerApp.swift in Sources */,
+				DA7E1A2A28DA4AF300674073 /* LocationManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -285,7 +289,9 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.carlynorama.LocationExplorer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -321,7 +327,9 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.carlynorama.LocationExplorer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

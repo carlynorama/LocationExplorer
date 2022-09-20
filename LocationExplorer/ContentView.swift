@@ -6,15 +6,32 @@
 //
 
 import SwiftUI
+import CoreLocationUI
+import CoreLocation.CLLocation
 
 struct ContentView: View {
+    @StateObject private var locationManager = LocationManager()
+    
+    @State var currentlocation:CLLocationCoordinate2D?
+
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundColor(.accentColor)
-            Text("Hello, world!")
+        if let currentlocation {
+            Text("\(currentlocation.latitude)")
         }
+        
+        LocationButton {
+            Task {
+                if let location = try? await locationManager.requestLocation() {
+                    currentlocation = location
+                    print("Location: \(location)")
+                } else {
+                    print("Location unknown.")
+                }
+            }
+        }
+        .frame(height: 44)
+        .foregroundColor(.white)
+        .clipShape(Capsule())
         .padding()
     }
 }
