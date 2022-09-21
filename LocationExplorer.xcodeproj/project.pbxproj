@@ -12,6 +12,7 @@
 		DA7E1A1F28DA4AD700674073 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DA7E1A1E28DA4AD700674073 /* Assets.xcassets */; };
 		DA7E1A2328DA4AD700674073 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DA7E1A2228DA4AD700674073 /* Preview Assets.xcassets */; };
 		DA7E1A2A28DA4AF300674073 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7E1A2928DA4AF300674073 /* LocationManager.swift */; };
+		DA7E1A2F28DB9B9B00674073 /* LocationServices in Frameworks */ = {isa = PBXBuildFile; productRef = DA7E1A2E28DB9B9B00674073 /* LocationServices */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +31,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DA7E1A2F28DB9B9B00674073 /* LocationServices in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -42,6 +44,7 @@
 				DA7E1A2B28DB546D00674073 /* Packages */,
 				DA7E1A1928DA4AD600674073 /* LocationExplorer */,
 				DA7E1A1828DA4AD600674073 /* Products */,
+				DA7E1A2D28DB9B9B00674073 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -82,6 +85,13 @@
 			name = Packages;
 			sourceTree = "<group>";
 		};
+		DA7E1A2D28DB9B9B00674073 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -98,6 +108,9 @@
 			dependencies = (
 			);
 			name = LocationExplorer;
+			packageProductDependencies = (
+				DA7E1A2E28DB9B9B00674073 /* LocationServices */,
+			);
 			productName = LocationExplorer;
 			productReference = DA7E1A1728DA4AD600674073 /* LocationExplorer.app */;
 			productType = "com.apple.product-type.application";
@@ -368,6 +381,13 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		DA7E1A2E28DB9B9B00674073 /* LocationServices */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = LocationServices;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = DA7E1A0F28DA4AD600674073 /* Project object */;
 }

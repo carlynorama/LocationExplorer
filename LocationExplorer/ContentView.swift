@@ -8,9 +8,10 @@
 import SwiftUI
 import CoreLocationUI
 import CoreLocation.CLLocation
+import LocationServices
 
 struct ContentView: View {
-    @StateObject private var locationManager = LocationManager()
+    @StateObject private var locationManager = DeviceLocationManager()
     
     @State var currentlocation:CLLocationCoordinate2D?
 
@@ -22,7 +23,7 @@ struct ContentView: View {
         LocationButton {
             Task {
                 if let location = try? await locationManager.requestLocation() {
-                    currentlocation = location
+                    currentlocation = location.coordinate
                     print("Location: \(location)")
                 } else {
                     print("Location unknown.")
