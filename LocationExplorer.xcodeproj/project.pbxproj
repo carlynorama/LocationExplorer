@@ -22,6 +22,7 @@
 		DA7E1A2028DA4AD700674073 /* LocationExplorer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = LocationExplorer.entitlements; sourceTree = "<group>"; };
 		DA7E1A2228DA4AD700674073 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		DA7E1A2928DA4AF300674073 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
+		DA7E1A2C28DB546D00674073 /* LocationServices */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = LocationServices; path = ../../../../../../../Documents/XCodeProjects/LocationServices; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -38,6 +39,7 @@
 		DA7E1A0E28DA4AD600674073 = {
 			isa = PBXGroup;
 			children = (
+				DA7E1A2B28DB546D00674073 /* Packages */,
 				DA7E1A1928DA4AD600674073 /* LocationExplorer */,
 				DA7E1A1828DA4AD600674073 /* Products */,
 			);
@@ -70,6 +72,14 @@
 				DA7E1A2228DA4AD700674073 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		DA7E1A2B28DB546D00674073 /* Packages */ = {
+			isa = PBXGroup;
+			children = (
+				DA7E1A2C28DB546D00674073 /* LocationServices */,
+			);
+			name = Packages;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
