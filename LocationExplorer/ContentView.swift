@@ -16,18 +16,23 @@ struct ContentView: View {
     //@State var currentlocation:CLLocationCoordinate2D?
 
     var body: some View {
-        
-        Text("\(locationManager.locationToUse.description)")
-        
-        LocationButton {
-            Task {
-                await locationManager.requestDeviceLocation()
+        VStack {
+            Text("\(locationManager.locationToUse.description)")
+            
+            LocationButton {
+                Task {
+                    await locationManager.requestDeviceLocation()
+                }
+            }
+            .frame(height: 44)
+            .foregroundColor(.white)
+            .clipShape(Capsule())
+            .padding()
+            
+            List(locationManager.recentLocations) { item in
+                Text(item.description)
             }
         }
-        .frame(height: 44)
-        .foregroundColor(.white)
-        .clipShape(Capsule())
-        .padding()
     }
 }
 
