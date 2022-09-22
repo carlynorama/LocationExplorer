@@ -11,23 +11,17 @@ import CoreLocation.CLLocation
 import LocationServices
 
 struct ContentView: View {
-    @StateObject private var locationManager = DeviceLocationManager()
+    @StateObject private var locationManager = LocationProvider(locationStore: LocationStore(), deviceLocationManager: DeviceLocationManager())
     
-    @State var currentlocation:CLLocationCoordinate2D?
+    //@State var currentlocation:CLLocationCoordinate2D?
 
     var body: some View {
-        if let currentlocation {
-            Text("\(currentlocation.latitude)")
-        }
+        
+        Text("\(locationManager.locationToUse.description)")
         
         LocationButton {
             Task {
-                if let location = try? await locationManager.requestLocation() {
-                    currentlocation = location.coordinate
-                    print("Location: \(location)")
-                } else {
-                    print("Location unknown.")
-                }
+                await locationManager.requestDeviceLocation()
             }
         }
         .frame(height: 44)
