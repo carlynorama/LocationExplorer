@@ -29,7 +29,11 @@ struct ContentView: View {
             .clipShape(Capsule())
             .padding()
             
-            List(locationManager.recentLocations) { item in
+            Button("clear") {
+                locationManager.clearHistory()
+            }
+            
+            List(Array(locationManager.recentLocations)) { item in
                 Text(item.description)
             }
         }
