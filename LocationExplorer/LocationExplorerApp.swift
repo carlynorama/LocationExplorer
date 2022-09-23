@@ -6,12 +6,16 @@
 //
 
 import SwiftUI
+import LocationServices
+
+
 
 @main
 struct LocationExplorerApp: App {
+    @StateObject private var locationManager = LocationProvider(locationStore: LocationStore(), deviceLocationManager: DeviceLocationManager())
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ContentView().environmentObject(locationManager)
         }
     }
 }

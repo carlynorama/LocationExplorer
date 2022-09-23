@@ -11,7 +11,7 @@ import CoreLocation.CLLocation
 import LocationServices
 
 struct ContentView: View {
-    @StateObject private var locationManager = LocationProvider(locationStore: LocationStore(), deviceLocationManager: DeviceLocationManager())
+    @EnvironmentObject var locationManager:LocationProvider
     
     //@State var currentlocation:CLLocationCoordinate2D?
 
@@ -36,12 +36,14 @@ struct ContentView: View {
             List(Array(locationManager.recentLocations)) { item in
                 Text(item.description)
             }
-        }
+            
+            LocationPickerView()
+        }.environmentObject(locationManager)
     }
 }
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        ContentView().environmentObject(LocationProvider(locationStore: LocationStore(), deviceLocationManager: DeviceLocationManager()))
     }
 }
