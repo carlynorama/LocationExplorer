@@ -15,7 +15,7 @@ import MapKit
 
 struct LocationPickerView: View {
     //@EnvironmentObject var weatherMap:WeatherVaneVM
-    @EnvironmentObject var locationManager:LocationProvider
+    @EnvironmentObject var locationManager:LocationService
     
     @State private var locationName:String = ""
     @State private var interestingLocation:LSLocation = LocationStore.locations[0]
@@ -88,7 +88,7 @@ struct LocationPickerView: View {
 
 
 struct CurrentLocationButton: View {
-    @EnvironmentObject var locationManager:LocationProvider
+    @EnvironmentObject var locationManager:LocationService
     
     var body: some View {
         if #available(iOS 15.0, *) {
@@ -106,6 +106,6 @@ struct CurrentLocationButton: View {
 
 struct LocationPickerView_Previews: PreviewProvider {
     static var previews: some View {
-        LocationPickerView().environmentObject(LocationProvider(locationStore: LocationStore(), deviceLocationManager: DeviceLocationManager()))
+        LocationPickerView().environmentObject(LocationService(locationStore: LocationStore(), deviceLocationManager: DeviceLocationManager()))
     }
 }

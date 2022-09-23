@@ -16,9 +16,9 @@ struct LocationView: View {
     
     var body: some View {
         VStack(alignment: .leading) {
-            Text("Hello (\(viewModel.currentLocation.pretty))").font(.title2).padding()
+            Text("Hello (\(viewModel.currentLocation.description))").font(.title2).padding()
             List(viewModel.pastLocations, id:\.self) {
-                Text($0.pretty)
+                Text($0.description)
             }
         }.onAppear() {
             Task {

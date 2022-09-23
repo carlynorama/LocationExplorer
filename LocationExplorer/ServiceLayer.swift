@@ -10,6 +10,7 @@
 import Foundation
 import CoreLocation
 import SwiftUI
+import LocationServices
 
 
 
@@ -20,15 +21,15 @@ protocol WeatherService {
 // Multiprotocol conformnce gets wierd.
 
 protocol LocationBroadcaster {
-    var locationStream:AsyncStream<CLLocation> { get }
-    var currentLocation:CLLocation { get }
+    var locationStream:AsyncStream<LSLocation> { get }
+    var currentLocation:LSLocation { get }
 }
 
 protocol LocationUpdater:AnyObject {
-    func update(with location:CLLocation)
+    func update(with location:LSLocation)
 }
 
-protocol LocationService:LocationBroadcaster & LocationUpdater {
+protocol MyLocationService:LocationBroadcaster & LocationUpdater {
     
 }
 
@@ -50,21 +51,21 @@ protocol WeatherViewModelFactory {
 }
 
 protocol LocationViewModelFactory {
-    var locationService: LocationService { get }
+    var locationService: MyLocationService { get }
     func makeLocationVM() -> LocationViewModel
 }
 
 
 struct Services {
     var weatherService: WeatherService
-    var locationService: LocationService
+    var locationService: MyLocationService
     var graphicsDriver: GraphicsDriver
     
     var locationBroadcaster: LocationBroadcaster {
         locationService
     }
     
-    init(weatherService: WeatherService, locationService: LocationService, graphicsDriver: GraphicsDriver) {
+    init(weatherService: WeatherService, locationService: MyLocationService, graphicsDriver: GraphicsDriver) {
         self.weatherService = weatherService
         self.locationService = locationService
         self.graphicsDriver = graphicsDriver

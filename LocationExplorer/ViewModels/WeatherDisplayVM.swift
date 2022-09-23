@@ -6,8 +6,8 @@
 //
 
 import Foundation
+import LocationServices
 import CoreLocation
-
 
 class WeatherDisplayVM:ObservableObject {
 
@@ -20,7 +20,7 @@ class WeatherDisplayVM:ObservableObject {
     
     @Published var weatherInfo:String = ""
     
-    var lastLocation:CLLocation? = nil
+    var lastLocation:LSLocation? = nil
     
     init(weatherService: WeatherService, locationService: LocationBroadcaster, displayGenerator:GraphicsDriver) {
         //self.weatherInfo = weatherInfo
@@ -67,7 +67,7 @@ class WeatherDisplayVM:ObservableObject {
                 Task { @MainActor in
                     do {
                         self.weatherInfo = "waiting..."
-                        self.weatherInfo = try await self.weatherService.getWeather(for: self.lastLocation!)
+                        self.weatherInfo = try await self.weatherService.getWeather(for: self.lastLocation!.location)
                     } catch {
                         self.weatherInfo = "No information at this time."
                         print("Weather serive error")
@@ -77,10 +77,10 @@ class WeatherDisplayVM:ObservableObject {
         }
     }
     
-    func updateDisplayPoint(_ location:CLLocation) {
+    func updateDisplayPoint(_ location:LSLocation) {
         
-        let xFactor = (location.coordinate.longitude + 180.0)/360.0
-        let yFactor = ((location.coordinate.latitude * -1) + 90.0)/180.0
+        let xFactor = (location.longitude + 180.0)/360.0
+        let yFactor = ((location.latitude * -1) + 90.0)/180.0
         print("updating display")
         displayGenerator.updateFactors(xFactor, yFactor)
     }

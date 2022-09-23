@@ -7,21 +7,24 @@
 
 import Foundation
 import CoreLocation
+import LocationServices
 
 
 
-class MockLocationService:LocationService {
+class MockLocationService:MyLocationService {
 
     
 //    func update() {
 //        //TODO: This should initialize the stream, not the location VM.
 //    }
     
-    var currentLocation:CLLocation = CLLocation(
+    var currentLocation:LSLocation = LSLocation(
         latitude: 38.0536909,
-        longitude: -118.242766)
+        longitude: -118.242766,
+        description: "Starting Location"
+    )
     
-    var locationStream: AsyncStream<CLLocation> {
+    var locationStream: AsyncStream<LSLocation> {
         return AsyncStream { continuation in
             let items = Self.locationsToStream.timeSorted()
             for item in items {
@@ -38,7 +41,7 @@ class MockLocationService:LocationService {
         }
     }
     
-    func update(with location:CLLocation) {
+    func update(with location:LSLocation) {
         currentLocation = location
     }
 }
@@ -46,7 +49,7 @@ class MockLocationService:LocationService {
 extension MockLocationService {
     
     struct TimedLocation:Timeable, Equatable {
-        let location:CLLocation
+        let location:LSLocation
         let interval:TimeInterval
     }
     
@@ -63,46 +66,53 @@ extension MockLocationService {
     static let changeTimes:[TimeInterval] = [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110]
     
     public static let locations = [
-        //Los Angeles
-        CLLocation(
+        LSLocation(
             latitude: 34.0536909,
-            longitude: -118.242766),
-        //Miami
-        CLLocation(
+            longitude: -118.242766,
+            description: "Los Angeles, CA, United States"),
+        LSLocation(
             latitude: 25.7959,
-            longitude: -80.2871),
-        //Chicago
-        CLLocation(
+            longitude: -80.2871,
+            description: "Miami, FL, United States"),
+        LSLocation(
             latitude: 41.8755616,
-            longitude: -87.6244212),
-        //Wellington
-        CLLocation(
+            longitude: -87.6244212,
+            description: "Chicago, IL, United States"),
+        LSLocation(
             latitude: -41.286461,
-            longitude: 174.776230),
-        //Rio Gallegos
-        CLLocation(
+            longitude: 174.776230,
+            description: "Wellington, New Zealand"),
+        LSLocation(
             latitude: -51.630920,
-            longitude: -69.224777),
-        CLLocation(
+            longitude: -69.224777,
+            description: "Rio Gallegos, Argentina"),
+        LSLocation(
             latitude: 47.562670,
-            longitude: -52.710890),
-        CLLocation(
+            longitude: -52.710890,
+            description: "St. Johns, NL, Canada"),
+        LSLocation(
             latitude: -53.161968,
-            longitude: -70.909561),
-        CLLocation(
+            longitude: -70.909561,
+            description: "Punta Arenas, Chile"),
+        LSLocation(
             latitude: 37.765470,
-            longitude: -100.015170),
-        CLLocation(
+            longitude: -100.015170,
+            description: "Dodge City, KS, United States"),
+        LSLocation(
             latitude: 3.52559,
-            longitude: 36.0745062),
-        CLLocation(
+            longitude: 36.0745062,
+            description: "Lake Turkana, Marsabit County, Kenya"),
+        LSLocation(
             latitude: -66.9000,
-            longitude: 142.6667),
-        CLLocation(
+            longitude: 142.6667,
+            description: "Commonwealth Bay, Antarctica"),
+        LSLocation(
             latitude: 47.3686498,
-            longitude: 8.5391825),
-        CLLocation(
+            longitude: 8.5391825,
+            description: "Zürich"),
+        LSLocation(
             latitude: -8.7467,
-            longitude: 115.1668)
+            longitude: 115.1668,
+            description: "Bali")
     ]
 }

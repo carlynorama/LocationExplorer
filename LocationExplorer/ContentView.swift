@@ -11,7 +11,7 @@
 //import LocationServices
 //
 //struct ContentView: View {
-//    @EnvironmentObject var locationManager:LocationProvider
+//    @EnvironmentObject var locationManager:LocationService
 //
 //    //@State var currentlocation:CLLocationCoordinate2D?
 //
@@ -44,7 +44,7 @@
 //
 //struct ContentView_Previews: PreviewProvider {
 //    static var previews: some View {
-//        ContentView().environmentObject(LocationProvider(locationStore: LocationStore(), deviceLocationManager: DeviceLocationManager()))
+//        ContentView().environmentObject(LocationService(locationStore: LocationStore(), deviceLocationManager: DeviceLocationManager()))
 //    }
 //}
 

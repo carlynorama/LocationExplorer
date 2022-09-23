@@ -6,26 +6,24 @@
 //
 
 import Foundation
-import CoreLocation
+import LocationServices
 
 @MainActor
 class LocationViewModel:ObservableObject {
-    var locationService:LocationService
+    var locationService:MyLocationService
     
-    init(locationService: LocationService) {
+    init(locationService: MyLocationService) {
         self.locationService = locationService
     }
     
-    @Published var currentLocation = CLLocation(
-        latitude: 35.0536909,
-        longitude: -118.242766)//MockLocationService.locations[0]
+    @Published var currentLocation = MockLocationService.locations[0]
     
-    @Published var pastLocations:[CLLocation] = []
+    @Published var pastLocations:[LSLocation] = []
     
     @Published var counter:Double = 0
     
     
-    private func connectToStream(_ stream:AsyncStream<CLLocation>) async {
+    private func connectToStream(_ stream:AsyncStream<LSLocation>) async {
         for await update in stream {
             pastLocations.append(currentLocation)
             currentLocation = update
