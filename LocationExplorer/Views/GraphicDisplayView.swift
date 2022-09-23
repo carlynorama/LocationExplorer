@@ -25,7 +25,7 @@ struct GraphicDisplayView: View {
             Image("WorldMap").resizable()
             TimelineView(.animation) { timeline in
                 Canvas { context, size in
-                    let time = timeline.date.timeIntervalSinceReferenceDate
+                    _ = timeline.date.timeIntervalSinceReferenceDate
                     displayGenerator.updateSize(to: size)
                     let mark = context.resolve(Image(systemName: "circle.fill"))
                     let rect = CGRect(origin: displayGenerator.epicenter, size:markSize)

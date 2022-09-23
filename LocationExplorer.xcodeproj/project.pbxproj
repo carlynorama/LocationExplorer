@@ -13,9 +13,8 @@
 		DA5A542428DE0F9800718E1E /* CLLocation + Pretty.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5A542128DE0F9700718E1E /* CLLocation + Pretty.swift */; };
 		DA5A542828DE0FAC00718E1E /* MockWeatherServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5A542728DE0FAC00718E1E /* MockWeatherServices.swift */; };
 		DA5A542928DE0FAC00718E1E /* DisplayGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5A542628DE0FAC00718E1E /* DisplayGenerator.swift */; };
-		DA5A542A28DE0FAC00718E1E /* MockLocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5A542528DE0FAC00718E1E /* MockLocationService.swift */; };
 		DA5A542D28DE0FDF00718E1E /* WeatherDisplayVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5A542C28DE0FDF00718E1E /* WeatherDisplayVM.swift */; };
-		DA5A542E28DE0FDF00718E1E /* LocationViewVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5A542B28DE0FDE00718E1E /* LocationViewVM.swift */; };
+		DA5A542E28DE0FDF00718E1E /* LocationAutoUpdater.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5A542B28DE0FDE00718E1E /* LocationAutoUpdater.swift */; };
 		DA5A543228DE0FE900718E1E /* WeatherView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5A542F28DE0FE900718E1E /* WeatherView.swift */; };
 		DA5A543328DE0FE900718E1E /* GraphicDisplayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5A543028DE0FE900718E1E /* GraphicDisplayView.swift */; };
 		DA5A543428DE0FE900718E1E /* LocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5A543128DE0FE900718E1E /* LocationView.swift */; };
@@ -31,10 +30,9 @@
 		DA5A541328DE0F6200718E1E /* ServiceLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServiceLayer.swift; sourceTree = "<group>"; };
 		DA5A542128DE0F9700718E1E /* CLLocation + Pretty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CLLocation + Pretty.swift"; sourceTree = "<group>"; };
 		DA5A542228DE0F9800718E1E /* Array + Stream.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array + Stream.swift"; sourceTree = "<group>"; };
-		DA5A542528DE0FAC00718E1E /* MockLocationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockLocationService.swift; sourceTree = "<group>"; };
 		DA5A542628DE0FAC00718E1E /* DisplayGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayGenerator.swift; sourceTree = "<group>"; };
 		DA5A542728DE0FAC00718E1E /* MockWeatherServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockWeatherServices.swift; sourceTree = "<group>"; };
-		DA5A542B28DE0FDE00718E1E /* LocationViewVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationViewVM.swift; sourceTree = "<group>"; };
+		DA5A542B28DE0FDE00718E1E /* LocationAutoUpdater.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationAutoUpdater.swift; sourceTree = "<group>"; };
 		DA5A542C28DE0FDF00718E1E /* WeatherDisplayVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherDisplayVM.swift; sourceTree = "<group>"; };
 		DA5A542F28DE0FE900718E1E /* WeatherView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherView.swift; sourceTree = "<group>"; };
 		DA5A543028DE0FE900718E1E /* GraphicDisplayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphicDisplayView.swift; sourceTree = "<group>"; };
@@ -64,7 +62,6 @@
 			isa = PBXGroup;
 			children = (
 				DA5A542628DE0FAC00718E1E /* DisplayGenerator.swift */,
-				DA5A542528DE0FAC00718E1E /* MockLocationService.swift */,
 				DA5A542728DE0FAC00718E1E /* MockWeatherServices.swift */,
 			);
 			path = Services;
@@ -82,7 +79,7 @@
 		DA5A543728DE119500718E1E /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
-				DA5A542B28DE0FDE00718E1E /* LocationViewVM.swift */,
+				DA5A542B28DE0FDE00718E1E /* LocationAutoUpdater.swift */,
 				DA5A542C28DE0FDF00718E1E /* WeatherDisplayVM.swift */,
 			);
 			path = ViewModels;
@@ -236,9 +233,8 @@
 				DA5A543228DE0FE900718E1E /* WeatherView.swift in Sources */,
 				DA5A542928DE0FAC00718E1E /* DisplayGenerator.swift in Sources */,
 				DA5A541228DD35CC00718E1E /* LocationPickerView.swift in Sources */,
-				DA5A542E28DE0FDF00718E1E /* LocationViewVM.swift in Sources */,
+				DA5A542E28DE0FDF00718E1E /* LocationAutoUpdater.swift in Sources */,
 				DA7E1A1B28DA4AD600674073 /* LocationExplorerApp.swift in Sources */,
-				DA5A542A28DE0FAC00718E1E /* MockLocationService.swift in Sources */,
 				DA5A541A28DE0F6200718E1E /* ServiceLayer.swift in Sources */,
 				DA5A543328DE0FE900718E1E /* GraphicDisplayView.swift in Sources */,
 				DA5A543428DE0FE900718E1E /* LocationView.swift in Sources */,

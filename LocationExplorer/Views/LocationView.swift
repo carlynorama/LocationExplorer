@@ -7,22 +7,24 @@
 
 import SwiftUI
 import CoreLocation
+import LocationServices
 
 
 
 
 struct LocationView: View {
-    @EnvironmentObject var viewModel:LocationViewModel
+    @EnvironmentObject var locationPusher:LocationAutoUpdater
+    @EnvironmentObject var locationService:LocationService
     
     var body: some View {
         VStack(alignment: .leading) {
-            Text("Hello (\(viewModel.currentLocation.description))").font(.title2).padding()
-            List(viewModel.pastLocations, id:\.self) {
+            Text("Hello \(locationService.locationToUse.description)").font(.title2).padding()
+            List(Array(locationService.recentLocations), id:\.self) {
                 Text($0.description)
             }
         }.onAppear() {
             Task {
-                await viewModel.listen()
+                await locationPusher.listen()
             }
         }
     }
@@ -30,6 +32,7 @@ struct LocationView: View {
 
 struct LocationOnlyView_Previews: PreviewProvider {
     static var previews: some View {
-        LocationView().environmentObject(LocationViewModel(locationService: MockLocationService()))
+        LocationView().environmentObject(Services.forPreviews.locationService)
+            .environmentObject(LocationAutoUpdater(locationService: Services.forPreviews.locationService))
     }
 }

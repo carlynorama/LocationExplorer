@@ -13,7 +13,7 @@ class WeatherDisplayVM:ObservableObject {
 
     
     let weatherService: WeatherService
-    let locationService: LocationBroadcaster
+    let locationService: LocationService
     let displayGenerator: GraphicsDriver
     
     //let locationStream:AsyncStream<CLLocation>
@@ -22,7 +22,7 @@ class WeatherDisplayVM:ObservableObject {
     
     var lastLocation:LSLocation? = nil
     
-    init(weatherService: WeatherService, locationService: LocationBroadcaster, displayGenerator:GraphicsDriver) {
+    init(weatherService: WeatherService, locationService: LocationService, displayGenerator:GraphicsDriver) {
         //self.weatherInfo = weatherInfo
         //self.locationInfo = locationInfo
         self.weatherService = weatherService
@@ -51,7 +51,7 @@ class WeatherDisplayVM:ObservableObject {
 //        }
 //    }
     
-    func listen() {
+    func listen(){
 //        Task { @MainActor in
 //            await connectToStream(locationStream)
 //        }
@@ -60,9 +60,9 @@ class WeatherDisplayVM:ObservableObject {
         //TODO: What happens if the location changes faster than the weather service provides info?
         Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true) { _ in
             //print("Checking")
-            if self.locationService.currentLocation != self.lastLocation {
+            if self.locationService.locationToUse != self.lastLocation {
                 //print("Not the same")
-                self.lastLocation = self.locationService.currentLocation
+                self.lastLocation = self.locationService.locationToUse
                 self.updateDisplayPoint(self.lastLocation!)
                 Task { @MainActor in
                     do {

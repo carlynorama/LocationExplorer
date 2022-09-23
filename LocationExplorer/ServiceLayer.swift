@@ -18,21 +18,6 @@ protocol WeatherService {
     func getWeather(for location:CLLocation) async throws -> String
 }
 
-// Multiprotocol conformnce gets wierd.
-
-protocol LocationBroadcaster {
-    var locationStream:AsyncStream<LSLocation> { get }
-    var currentLocation:LSLocation { get }
-}
-
-protocol LocationUpdater:AnyObject {
-    func update(with location:LSLocation)
-}
-
-protocol MyLocationService:LocationBroadcaster & LocationUpdater {
-    
-}
-
 protocol GraphicsDriver {
     //Used by the view to display
     var epicenter:CGPoint { get }
@@ -45,52 +30,47 @@ protocol GraphicsDriver {
 
 protocol WeatherViewModelFactory {
     var weatherService: WeatherService { get }  //can't be let b/c protocol
-    var locationBroadcaster: LocationBroadcaster { get }
+    var locationService: LocationService { get }
     
     func makeWeatherDisplayVM() -> WeatherDisplayVM
 }
 
-protocol LocationViewModelFactory {
-    var fakeLocationService: MyLocationService { get }
-    func makeLocationVM() -> LocationViewModel
+protocol LocationPusherFactory {
+    var locationService:LocationService { get }
+    func makeLocationPusher() -> LocationAutoUpdater
 }
 
 
 struct Services {
     var weatherService: WeatherService
-    var fakeLocationService: MyLocationService
     var graphicsDriver: GraphicsDriver
-    let realLocaitonService: LocationService
-    
-    var locationBroadcaster: LocationBroadcaster {
-        fakeLocationService
-    }
+    let locationService: LocationService
     
     
-    init(weatherService: WeatherService, flocationService: MyLocationService, graphicsDriver: GraphicsDriver) {
+    init(weatherService: WeatherService, locationService: LocationService, graphicsDriver: GraphicsDriver) {
         self.weatherService = weatherService
-        self.fakeLocationService = flocationService
         self.graphicsDriver = graphicsDriver
-        self.realLocaitonService = LocationService(locationStore: LocationStore(), deviceLocationManager: DeviceLocationManager())
+        self.locationService = locationService
     }
 }
 
 extension Services:WeatherViewModelFactory {
+    
 
     func makeWeatherDisplayVM() -> WeatherDisplayVM {
         //WeatherDisplayVM(weatherService: weatherService, locationStream: locationBroadcaster.locationStream)
         WeatherDisplayVM(
             weatherService: weatherService,
-            locationService: locationBroadcaster,
+            locationService: locationService,
             displayGenerator: graphicsDriver
         )
     }
     
 }
 
-extension Services:LocationViewModelFactory {
-    @MainActor func makeLocationVM() -> LocationViewModel {
-        return LocationViewModel(locationService: fakeLocationService)
+extension Services:LocationPusherFactory {
+    @MainActor func makeLocationPusher() -> LocationAutoUpdater {
+        return LocationAutoUpdater(locationService: locationService)
     }
 }
 
@@ -98,7 +78,7 @@ extension Services {
     static let forPreviews =
         Services(
             weatherService: GoogleWeatherService(),
-            flocationService: MockLocationService(),
+            locationService: LocationService(),
             graphicsDriver: DisplayGenerator.shared
         )
     

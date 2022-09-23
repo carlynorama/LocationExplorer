@@ -24,7 +24,7 @@ import LocationServices
 //TODO: Where is the most performant place to put this?
 var services:Services = Services(
     weatherService: WeatherKitService(),
-    flocationService: MockLocationService(),
+    locationService: LocationService(),
     graphicsDriver: DisplayGenerator()
 )
 
@@ -34,7 +34,7 @@ struct SimpleServiceModelApp: App {
         WindowGroup {
             ContentView()
                 .environmentObject(services.makeWeatherDisplayVM())
-                .environmentObject(services.makeLocationVM())
+                .environmentObject(services.makeLocationPusher())
                 .preferredColorScheme(.dark)
         }
     }

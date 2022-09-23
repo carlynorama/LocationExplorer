@@ -65,18 +65,25 @@ import CoreLocation
 
 struct ContentView: View {
     @EnvironmentObject var weather:WeatherDisplayVM
-    @EnvironmentObject var location:LocationViewModel
+    @EnvironmentObject var location:LocationAutoUpdater
     
     
     var body: some View {
         VStack {
-            GraphicDisplayView(displayGenerator: services.graphicsDriver)
+            
             HStack {
+                
+                    VStack {
+                        LocationPickerView()
+                        LocationView().environmentObject(location)
+                    }.environmentObject(services.locationService)
+                
                 VStack {
-                    LocationView().environmentObject(location)
-                    LocationPickerView().environmentObject(services.realLocaitonService)
+                    GraphicDisplayView(displayGenerator: services.graphicsDriver)
+                    WeatherView().environmentObject(weather)
+                    
                 }
-                WeatherView().environmentObject(weather)
+                
             }
         }
     }
@@ -85,7 +92,7 @@ struct ContentView: View {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
-            .environmentObject(Services.forPreviews.makeLocationVM())
+            .environmentObject(Services.forPreviews.makeLocationPusher())
             .environmentObject(Services.forPreviews.makeWeatherDisplayVM())
     }
 }
