@@ -10,12 +10,32 @@ import LocationServices
 
 
 
+//@main
+//struct LocationExplorerApp: App {
+//    @StateObject private var locationManager = LocationProvider(locationStore: LocationStore(), deviceLocationManager: DeviceLocationManager())
+//    var body: some Scene {
+//        WindowGroup {
+//            ContentView().environmentObject(locationManager)
+//        }
+//    }
+//}
+
+
+//TODO: Where is the most performant place to put this?
+var services:Services = Services(
+    weatherService: WeatherKitService(),
+    locationService: MockLocationService(),
+    graphicsDriver: DisplayGenerator()
+)
+
 @main
-struct LocationExplorerApp: App {
-    @StateObject private var locationManager = LocationProvider(locationStore: LocationStore(), deviceLocationManager: DeviceLocationManager())
+struct SimpleServiceModelApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView().environmentObject(locationManager)
+            ContentView()
+                .environmentObject(services.makeWeatherDisplayVM())
+                .environmentObject(services.makeLocationVM())
+                .preferredColorScheme(.dark)
         }
     }
 }
