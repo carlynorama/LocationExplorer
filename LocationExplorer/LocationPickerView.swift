@@ -70,8 +70,11 @@ struct LocationPickerView: View {
     }
     
     func newLocation(from location:MKMapItem) {
+        print("enter newLocation")
         if let asLocation = LSLocation(from: location) {
-            locationManager.updateLocation(asLocation)
+            print("got Location")
+            Task { locationManager.updateLocation(asLocation) }
+            print("updating Location")
         } else {
             print("Something didn't work.")
         }
