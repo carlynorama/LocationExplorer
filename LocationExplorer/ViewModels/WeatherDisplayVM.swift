@@ -78,7 +78,6 @@ class WeatherDisplayVM:ObservableObject {
     }
     
     func updateDisplayPoint(_ location:LSLocation) {
-        
         let xFactor = (location.longitude + 180.0)/360.0
         let yFactor = ((location.latitude * -1) + 90.0)/180.0
         print("updating display")

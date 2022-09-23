@@ -34,7 +34,7 @@ class LocationViewModel:ObservableObject {
     
     private func disconnectStream() {
         //learn how to do???
-        //locationService.killStreams?
+        //fakeLocationService.killStreams?
     }
     
     func listen() async {

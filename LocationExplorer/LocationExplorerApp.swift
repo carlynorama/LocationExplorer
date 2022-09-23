@@ -24,7 +24,7 @@ import LocationServices
 //TODO: Where is the most performant place to put this?
 var services:Services = Services(
     weatherService: WeatherKitService(),
-    locationService: MockLocationService(),
+    flocationService: MockLocationService(),
     graphicsDriver: DisplayGenerator()
 )
 

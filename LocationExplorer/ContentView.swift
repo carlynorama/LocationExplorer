@@ -72,7 +72,10 @@ struct ContentView: View {
         VStack {
             GraphicDisplayView(displayGenerator: services.graphicsDriver)
             HStack {
-                LocationView().environmentObject(location)
+                VStack {
+                    LocationView().environmentObject(location)
+                    LocationPickerView().environmentObject(services.realLocaitonService)
+                }
                 WeatherView().environmentObject(weather)
             }
         }

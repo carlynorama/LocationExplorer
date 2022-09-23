@@ -51,24 +51,27 @@ protocol WeatherViewModelFactory {
 }
 
 protocol LocationViewModelFactory {
-    var locationService: MyLocationService { get }
+    var fakeLocationService: MyLocationService { get }
     func makeLocationVM() -> LocationViewModel
 }
 
 
 struct Services {
     var weatherService: WeatherService
-    var locationService: MyLocationService
+    var fakeLocationService: MyLocationService
     var graphicsDriver: GraphicsDriver
+    let realLocaitonService: LocationService
     
     var locationBroadcaster: LocationBroadcaster {
-        locationService
+        fakeLocationService
     }
     
-    init(weatherService: WeatherService, locationService: MyLocationService, graphicsDriver: GraphicsDriver) {
+    
+    init(weatherService: WeatherService, flocationService: MyLocationService, graphicsDriver: GraphicsDriver) {
         self.weatherService = weatherService
-        self.locationService = locationService
+        self.fakeLocationService = flocationService
         self.graphicsDriver = graphicsDriver
+        self.realLocaitonService = LocationService(locationStore: LocationStore(), deviceLocationManager: DeviceLocationManager())
     }
 }
 
@@ -87,7 +90,7 @@ extension Services:WeatherViewModelFactory {
 
 extension Services:LocationViewModelFactory {
     @MainActor func makeLocationVM() -> LocationViewModel {
-        return LocationViewModel(locationService: locationService)
+        return LocationViewModel(locationService: fakeLocationService)
     }
 }
 
@@ -95,7 +98,7 @@ extension Services {
     static let forPreviews =
         Services(
             weatherService: GoogleWeatherService(),
-            locationService: MockLocationService(),
+            flocationService: MockLocationService(),
             graphicsDriver: DisplayGenerator.shared
         )
     
