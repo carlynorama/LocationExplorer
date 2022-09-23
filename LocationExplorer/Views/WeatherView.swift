@@ -8,18 +8,21 @@
 import SwiftUI
 
 struct WeatherView: View {
-    @EnvironmentObject var weatherViewModel:WeatherDisplayVM
+    @StateObject var weatherViewModel:WeatherDisplayVM = services.makeWeatherDisplayVM()
     
     var body: some View {
         ZStack {
             Rectangle().foregroundColor(services.graphicsDriver.backgroundColor)
-            Text(weatherViewModel.weatherInfo)
+            VStack {
+                Text(weatherViewModel.locationService.locationToUse.description)
+                Text(weatherViewModel.weatherInfo)
+            }
         }.onAppear(perform: weatherViewModel.listen)
     }
 }
 
 struct WeatherView_Previews: PreviewProvider {
     static var previews: some View {
-        WeatherView().environmentObject(Services.forPreviews.makeWeatherDisplayVM())
+        WeatherView(weatherViewModel: Services.forPreviews.makeWeatherDisplayVM())
     }
 }

@@ -33,8 +33,6 @@ struct SimpleServiceModelApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
-                .environmentObject(services.makeWeatherDisplayVM())
-                .environmentObject(services.makeLocationPusher())
                 .preferredColorScheme(.dark)
         }
     }

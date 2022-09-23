@@ -12,8 +12,8 @@ import LocationServices
 
 
 
-struct LocationView: View {
-    @EnvironmentObject var locationPusher:LocationAutoUpdater
+struct LocationInfoDisplay: View {
+    var locationPusher:LocationAutoUpdater = services.makeLocationPusher()
     @EnvironmentObject var locationService:LocationService
     
     var body: some View {
@@ -32,7 +32,6 @@ struct LocationView: View {
 
 struct LocationOnlyView_Previews: PreviewProvider {
     static var previews: some View {
-        LocationView().environmentObject(Services.forPreviews.locationService)
-            .environmentObject(LocationAutoUpdater(locationService: Services.forPreviews.locationService))
+        LocationInfoDisplay().environmentObject(Services.forPreviews.locationService)
     }
 }
