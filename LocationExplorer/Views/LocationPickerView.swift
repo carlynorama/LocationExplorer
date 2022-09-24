@@ -17,7 +17,6 @@ struct LocationPickerView: View {
     //@EnvironmentObject var weatherMap:WeatherVaneVM
     @EnvironmentObject var locationManager:LocationService
     
-    @State private var locationName:String = ""
     @State private var interestingLocation:LSLocation = LocationStore.locations[0]
     @State private var searchField:String = ""
     
@@ -38,7 +37,7 @@ struct LocationPickerView: View {
             }
             Section("Physical Location") {
                 HStack {
-                    TextField("Location", text: $locationName)
+                    //TextField("Location", text: $locationName)
                     CurrentLocationButton()
                 }
             }
@@ -58,10 +57,15 @@ struct LocationPickerView: View {
                 Button("Make Selected") {
                     newLocation(from: searchResult)
                 }
+                
+                LocationPicker(mapitem: $searchResult).locationPickerStyle(.inlineSearch)
             }
         }
         
         .environmentObject(locationManager)
+        .onReceive(locationManager.locationPublisher) { location in
+            searchResult = location.asMapItem()
+        }
     }
 
     

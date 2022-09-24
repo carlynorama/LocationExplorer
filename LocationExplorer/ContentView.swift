@@ -74,7 +74,7 @@ struct ContentView: View {
                 
                     VStack {
                         LocationPickerView()
-                        LocationInfoDisplay()
+                        //LocationInfoDisplay()
                     }.environmentObject(services.locationService)
                 
                 VStack {
