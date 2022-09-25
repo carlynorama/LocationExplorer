@@ -65,7 +65,9 @@ import CoreLocation
 
 struct ContentView: View {
 
-    
+    //must pass the observable object in a property wapper if you want the sub
+    //view to update.
+    @StateObject var locationServicesForParameter = services.locationService
     
     var body: some View {
         VStack {
@@ -73,8 +75,9 @@ struct ContentView: View {
             HStack {
                 
                     VStack {
+                        CurrentLocationInfoView(locationToDisplay: locationServicesForParameter.locationToUse)
                         LocationPickerView()
-                        //LocationInfoDisplay()
+                        LocationHistoryDisplay()
                     }.environmentObject(services.locationService)
                 
                 VStack {

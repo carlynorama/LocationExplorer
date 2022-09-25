@@ -28,19 +28,19 @@ struct LocationPickerView: View {
     var body: some View {
         Form {
 
-            Section("Location Manager Location") {
-                Text("Your location: \(locationManager.locationToUse.latitude), \(locationManager.locationToUse.longitude)")
-                Text("Place Name: \(locationManager.locationToUse.description)")
-                //Text("Locality name: \(locationManager.locality ?? "...")")
-                
-                
-            }
-            Section("Physical Location") {
-                HStack {
-                    //TextField("Location", text: $locationName)
-                    CurrentLocationButton()
-                }
-            }
+//            Section("Root Location") {
+//                Text("Your location: \(locationManager.locationToUse.latitude), \(locationManager.locationToUse.longitude)")
+//                Text("Place Name: \(locationManager.locationToUse.description)")
+//                //Text("Locality name: \(locationManager.locality ?? "...")")
+//
+//
+//            }
+//            Section("Physical Location") {
+//                HStack {
+//                    //TextField("Location", text: $locationName)
+//                    CurrentLocationButton()
+//                }
+//            }
             Section("Interesting Locations") {
                 Picker("Interesting", selection: $interestingLocation) {
                     ForEach(LocationStore.locations, id: \.self) { option in
@@ -53,7 +53,11 @@ struct LocationPickerView: View {
                 
             }
             Section("Location Picker") {
-                LocationPicker(mapitem: $searchResult)
+                HStack {
+                    LocationPicker(mapitem: $searchResult)
+                    //TODO: BAD NEWS spawning a hidden task call. 
+                    CurrentLocationButton()
+                }
                 Button("Make Selected") {
                     newLocation(from: searchResult)
                 }
@@ -90,21 +94,49 @@ struct LocationPickerView: View {
     
 }
 
-
+//TODO: BAD NEWS spawning a hidden task call. 
 struct CurrentLocationButton: View {
     @EnvironmentObject var locationManager:LocationService
+    
+    @State var updateTask:Task<(),Never>?
+    
     
     var body: some View {
         if #available(iOS 15.0, *) {
             LocationButton(.currentLocation) {
-                Task { await locationManager.requestDeviceLocation() }
+                if updateTask == nil {
+                    print("new request task")
+                    //TODO: Move this task spawning back into the View??
+                    updateTask = locationManager.startDeviceLocationUpdateAttempt()
+                } else {
+                    print("attempt to clean up task")
+                    if locationManager.status != .pending {
+                        updateTask?.cancel()
+                        print("updateTask: \(updateTask)")
+                        updateTask = nil
+                    } else {
+                        print("still working")
+                    }
+                }
             }.symbolVariant(.fill)
                 .labelStyle(.iconOnly)
                 .foregroundColor(Color.white)
                 .cornerRadius(20)
                 .font(.system(size:12))
+                .onDisappear() {
+                    updateTask?.cancel()
+                }
+                .onReceive(locationManager.$locationToUse) { _ in
+                    if (updateTask != nil) {
+                        updateTask?.cancel()
+                        updateTask = nil
+                        print("changed detected. canceling task. ")
+                    }
+                }
         }
     }
+    
+    
 }
 
 
