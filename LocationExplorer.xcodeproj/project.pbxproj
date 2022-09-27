@@ -24,6 +24,7 @@
 		DA7E1A1F28DA4AD700674073 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DA7E1A1E28DA4AD700674073 /* Assets.xcassets */; };
 		DA7E1A2328DA4AD700674073 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DA7E1A2228DA4AD700674073 /* Preview Assets.xcassets */; };
 		DA7E1A2F28DB9B9B00674073 /* LocationServices in Frameworks */ = {isa = PBXBuildFile; productRef = DA7E1A2E28DB9B9B00674073 /* LocationServices */; };
+		DA990B5A28E2115A003BE660 /* GraphicDisplayVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA990B5928E2115A003BE660 /* GraphicDisplayVM.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -46,6 +47,7 @@
 		DA7E1A2028DA4AD700674073 /* LocationExplorer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = LocationExplorer.entitlements; sourceTree = "<group>"; };
 		DA7E1A2228DA4AD700674073 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		DA7E1A2C28DB546D00674073 /* LocationServices */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = LocationServices; path = ../../../../../../../Documents/XCodeProjects/LocationServices; sourceTree = "<group>"; };
+		DA990B5928E2115A003BE660 /* GraphicDisplayVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphicDisplayVM.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,6 +83,7 @@
 		DA5A543728DE119500718E1E /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				DA990B5928E2115A003BE660 /* GraphicDisplayVM.swift */,
 				DA5A542B28DE0FDE00718E1E /* LocationAutoUpdater.swift */,
 				DA5A542C28DE0FDF00718E1E /* WeatherDisplayVM.swift */,
 			);
@@ -231,6 +234,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DA5A542D28DE0FDF00718E1E /* WeatherDisplayVM.swift in Sources */,
+				DA990B5A28E2115A003BE660 /* GraphicDisplayVM.swift in Sources */,
 				DA5A543A28DFC11700718E1E /* CurrentLocationInfoView.swift in Sources */,
 				DA7E1A1D28DA4AD600674073 /* ContentView.swift in Sources */,
 				DA5A542828DE0FAC00718E1E /* MockWeatherServices.swift in Sources */,

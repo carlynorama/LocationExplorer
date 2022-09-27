@@ -112,7 +112,7 @@ struct CurrentLocationButton: View {
                     print("attempt to clean up task")
                     if locationManager.status != .pending {
                         updateTask?.cancel()
-                        print("updateTask: \(updateTask)")
+                        print("updateTask: \(String(describing: updateTask))")
                         updateTask = nil
                     } else {
                         print("still working")

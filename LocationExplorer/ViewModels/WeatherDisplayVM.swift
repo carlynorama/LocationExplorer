@@ -9,41 +9,81 @@ import Foundation
 import LocationServices
 import CoreLocation
 
+
 class WeatherDisplayVM:ObservableObject {
 
-    
     let weatherService: WeatherService
     let locationService: LocationService
-    let displayGenerator: GraphicsDriver
-    
-    //let locationStream:AsyncStream<CLLocation>
     
     @Published var weatherInfo:String = ""
     
     var lastLocation:LSLocation? = nil
+    var lastProfile:WeatherProfile? = nil
     
-    init(weatherService: WeatherService, locationService: LocationService, displayGenerator:GraphicsDriver) {
-        //self.weatherInfo = weatherInfo
-        //self.locationInfo = locationInfo
+    init(weatherService: WeatherService, locationService: LocationService) {
         self.weatherService = weatherService
         self.locationService = locationService
-        self.displayGenerator = displayGenerator
     }
     
-//    init(weatherService: WeatherService, locationStream: AsyncStream<CLLocation>) {
-//        //self.weatherInfo = weatherInfo
-//        //self.locationInfo = locationInfo
-//        self.weatherService = weatherService
-//        self.locationStream = locationStream
-//    }
+    deinit {
+        print("Confirmed VM for \(weatherService.serviceID) deinit")
+    }
     
-//    //TODO: does this WHOLE task need to be on the main actor?
-//    @MainActor
-//    private func connectToStream(_ stream:AsyncStream<CLLocation>) async {
+    @MainActor
+    func rephreshDescription() async throws {
+        weatherInfo =  "It's \(descriptionForProfile(lastProfile)) in \(lastLocation?.description ?? "somewhere") says \(weatherService.serviceID)"
+    }
+
+    private func updateLocation() async {
+        if await self.locationService.locationToUse != self.lastLocation {
+            //print("Not the same")
+            self.lastLocation = await self.locationService.locationToUse
+            await updateProfile()
+        }
+    }
+    
+    private func updateLocation(_ loc:LSLocation) async {
+        if loc != self.lastLocation {
+            //print("Not the same")
+            self.lastLocation = loc
+            await updateProfile()
+        }
+    }
+    
+    func updateProfile() async {
+        if let lastLocation {
+            let profile = try? await self.weatherService.weatherProfile(for: lastLocation.location)
+            lastProfile = profile ?? .undefined
+        } else {
+            lastProfile = .undefined
+        }
+        
+    }
+    
+    
+    func descriptionForProfile(_ profile:WeatherProfile?) -> String {
+        switch profile {
+        case .sunny:
+            return "sunny"
+        case .cloudy:
+            return "cloudy"
+        case .hopefullyCold:
+            return "not cold enough"
+        case .offWorld:
+            return "other worldly"
+        case .undefined:
+            return "indescribable"
+        case .none:
+            return "unavailable"
+        }
+
+    }
+    
+//    private func beginStream(_ stream:AsyncStream<LSLocation>) async {
 //        for await update in stream {
 //            do {
-//                weatherInfo = "waiting..."
-//                weatherInfo = try await weatherService.getWeather(for: update)
+//                await updateLocation(update)
+//                try await rephreshDescription()
 //            } catch {
 //                weatherInfo = "No information at this time."
 //                print("Weather serive error")
@@ -51,37 +91,43 @@ class WeatherDisplayVM:ObservableObject {
 //        }
 //    }
     
-    func listen(){
-//        Task { @MainActor in
-//            await connectToStream(locationStream)
-//        }
-        //TODO: Who kills this timer?
-        //https://www.hackingwithswift.com/books/ios-swiftui/triggering-events-repeatedly-using-a-timer
-        //TODO: What happens if the location changes faster than the weather service provides info?
-        Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true) { _ in
-            //print("Checking")
-            if self.locationService.locationToUse != self.lastLocation {
-                //print("Not the same")
-                self.lastLocation = self.locationService.locationToUse
-                self.updateDisplayPoint(self.lastLocation!)
-                Task { @MainActor in
-                    do {
-                        self.weatherInfo = "waiting..."
-                        self.weatherInfo = try await self.weatherService.getWeather(for: self.lastLocation!.location)
-                    } catch {
-                        self.weatherInfo = "No information at this time."
-                        print("Weather serive error")
-                    }
-                }
+    func listen() async {
+        for await update in await locationService.$locationToUse.values {
+            do {
+                await updateLocation(update)
+                try await rephreshDescription()
+            } catch {
+                weatherInfo = "No information at this time."
+                print("Weather serive error")
             }
         }
     }
     
-    func updateDisplayPoint(_ location:LSLocation) {
-        let xFactor = (location.longitude + 180.0)/360.0
-        let yFactor = ((location.latitude * -1) + 90.0)/180.0
-        print("updating display")
-        displayGenerator.updateFactors(xFactor, yFactor)
-    }
+//    func listen() {
+//     //   Task { @MainActor in
+//     //       await connectToStream(locationStream)
+//     //   }
+//        //TODO: Who kills this timer?
+//        //https://www.hackingwithswift.com/books/ios-swiftui/triggering-events-repeatedly-using-a-timer
+//        //TODO: What happens if the location changes faster than the weather service provides info?
+//        Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true) { [self] _ in
+//
+//
+//                Task { @MainActor in
+//                    do {
+//                        self.weatherInfo = "waiting..."
+//                        await self.updateLocation()
+//                        await updateProfile()
+//                        try await rephreshDescription()
+//                    } catch {
+//                        self.weatherInfo = "No information at this time."
+//                        print("Weather service error")
+//                    }
+//                }
+//            }
+//
+//    }
+    
+
     
 }

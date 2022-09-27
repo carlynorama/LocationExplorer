@@ -15,7 +15,8 @@ import LocationServices
 
 
 protocol WeatherService {
-    func getWeather(for location:CLLocation) async throws -> String
+    var serviceID:String { get }
+    func weatherProfile(for location:CLLocation) async throws -> WeatherProfile
 }
 
 protocol GraphicsDriver {
@@ -61,8 +62,7 @@ extension Services:WeatherViewModelFactory {
         //WeatherDisplayVM(weatherService: weatherService, locationStream: locationBroadcaster.locationStream)
         WeatherDisplayVM(
             weatherService: weatherService,
-            locationService: locationService,
-            displayGenerator: graphicsDriver
+            locationService: locationService
         )
     }
     
@@ -77,7 +77,7 @@ extension Services:LocationPusherFactory {
 extension Services {
     static let forPreviews =
         Services(
-            weatherService: GoogleWeatherService(),
+            weatherService: WeatherChannelService(),
             locationService: LocationService(),
             graphicsDriver: DisplayGenerator.shared
         )
